@@ -1,6 +1,7 @@
 package de.biosphere.wtp;
 
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -9,6 +10,7 @@ import io.javalin.http.staticfiles.Location;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.utils.cache.CacheFlag;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -52,6 +54,7 @@ public class WheresTheParty {
             final JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
             jdaBuilder.setToken(System.getenv("DISCORD_TOKEN"));
             jdaBuilder.addEventListener(new MessageHandler(this));
+            jdaBuilder.setDisabledCacheFlags(EnumSet.of(CacheFlag.EMOTE, CacheFlag.GAME));
             return jdaBuilder.build().awaitReady();
         } catch (Exception exception) {
             logger.error("Encountered exception while initializing ShardManager!");
