@@ -5,7 +5,7 @@ function start() {
   
   // Connect to the websocket
   connect = function() {
-    var socket = new WebSocket(window.location.protocol.replace('http','ws') + '//' + window.location.hostname + '/ws');
+    var socket = new WebSocket(window.location.protocol.replace('http','ws') + '//' + window.location.hostname + ':' + window.location.port + '/socket');
     socket.onopen = function(e) {
       console.log('Successfully connected to server!');
     };
