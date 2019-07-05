@@ -1,14 +1,15 @@
-package de.biosphere.wtp;
+package de.biosphere.wtp.listener;
 
+import de.biosphere.wtp.WheresTheParty;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.json.JSONObject;
 
-public class MessageHandler extends ListenerAdapter {
+public class MessageListener extends ListenerAdapter {
 
     private final WheresTheParty bot;
 
-    public MessageHandler(final WheresTheParty bot) {
+    public MessageListener(final WheresTheParty bot) {
         this.bot = bot;
     }
 

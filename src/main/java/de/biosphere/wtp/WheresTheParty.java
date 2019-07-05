@@ -5,11 +5,14 @@ import java.util.EnumSet;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import de.biosphere.wtp.listener.GuildListener;
+import de.biosphere.wtp.listener.MessageListener;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.utils.cache.CacheFlag;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
@@ -53,8 +56,11 @@ public class WheresTheParty {
         try {
             final JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
             jdaBuilder.setToken(System.getenv("DISCORD_TOKEN"));
-            jdaBuilder.addEventListener(new MessageHandler(this));
+            jdaBuilder.addEventListener(new MessageListener(this), new GuildListener(this));
             jdaBuilder.setDisabledCacheFlags(EnumSet.of(CacheFlag.EMOTE, CacheFlag.GAME));
+            if(System.getenv("DISCORD_GAME") != null){
+                jdaBuilder.setGame(Game.playing(System.getenv("DISCORD_GAME")));
+            }
             return jdaBuilder.build().awaitReady();
         } catch (Exception exception) {
             logger.error("Encountered exception while initializing ShardManager!");
@@ -72,4 +78,7 @@ public class WheresTheParty {
         });
     }
 
+    public Queue<Session> getSessions() {
+        return sessions;
+    }
 }
