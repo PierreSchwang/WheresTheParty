@@ -1,8 +1,11 @@
+var nodes;
+var edges;
+
 function start() {
-  var nodes = new vis.DataSet([]);
-  var edges = new vis.DataSet([]);
+  nodes = new vis.DataSet([]);
+  edges = new vis.DataSet([]);
   var brokenImage = 'https://discordapp.com/assets/6debd47ed13483642cf09e832ed0bc1b.png';
-  
+
   // Connect to the websocket
   connect = function() {
     var socket = new WebSocket(window.location.protocol.replace('http','ws') + '//' + window.location.hostname + ':' + window.location.port + '/socket');
@@ -71,4 +74,9 @@ function toggleInfobox() {
     im.style.display = "none";
     sb.style.display = "block";
   }
-} 
+}
+
+function  clearNetwork() {
+  nodes.clear();
+  edges.clear();
+}
