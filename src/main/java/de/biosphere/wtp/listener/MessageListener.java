@@ -1,8 +1,8 @@
 package de.biosphere.wtp.listener;
 
 import de.biosphere.wtp.WheresTheParty;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.json.JSONObject;
 
 public class MessageListener extends ListenerAdapter {

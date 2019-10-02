@@ -1,9 +1,9 @@
 package de.biosphere.wtp.listener;
 
 import de.biosphere.wtp.WheresTheParty;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.json.JSONObject;
 
 public class GuildListener extends ListenerAdapter {

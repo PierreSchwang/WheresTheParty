@@ -9,11 +9,11 @@ import de.biosphere.wtp.listener.GuildListener;
 import de.biosphere.wtp.listener.MessageListener;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.utils.cache.CacheFlag;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -56,10 +56,10 @@ public class WheresTheParty {
         try {
             final JDABuilder jdaBuilder = new JDABuilder(AccountType.BOT);
             jdaBuilder.setToken(System.getenv("DISCORD_TOKEN"));
-            jdaBuilder.addEventListener(new MessageListener(this), new GuildListener(this));
-            jdaBuilder.setDisabledCacheFlags(EnumSet.of(CacheFlag.EMOTE, CacheFlag.GAME));
+            jdaBuilder.addEventListeners(new MessageListener(this), new GuildListener(this));
+            jdaBuilder.setDisabledCacheFlags(EnumSet.of(CacheFlag.EMOTE, CacheFlag.ACTIVITY));
             if(System.getenv("DISCORD_GAME") != null){
-                jdaBuilder.setGame(Game.playing(System.getenv("DISCORD_GAME")));
+                jdaBuilder.setActivity(Activity.playing(System.getenv("DISCORD_GAME")));
             }
             return jdaBuilder.build().awaitReady();
         } catch (Exception exception) {
